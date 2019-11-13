@@ -1,0 +1,1 @@
+// generated training data for network
