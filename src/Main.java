@@ -8,6 +8,11 @@ public class Main {
         //for (double val : out) {
         //    System.out.println(val);
         //}
-        n.exportNetwork("test.yml");
+        n.exportNetwork(args[0]);
+
+        Network n1 = new Network(args[0]);
+        n1.printNetwork();
+
+
     }
 }

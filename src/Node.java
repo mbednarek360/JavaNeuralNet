@@ -15,6 +15,12 @@ public class Node {
         }
     }
 
+    // for deserialization
+    public Node(double[] w, double b) {
+        this.weights = w;
+        this.bias = b;
+    }
+
     // print weights and bias
     public void printStats() {
         System.out.println("Bias: " + this.bias);

@@ -1,6 +1,8 @@
 // yaml
 import java.io.FileWriter;
+import java.io.FileReader;
 import com.esotericsoftware.yamlbeans.YamlWriter;
+import com.esotericsoftware.yamlbeans.YamlReader;
 
 // handles training and network usage
 public class Network {
@@ -36,9 +38,44 @@ public class Network {
 
     // load network from yaml file
     public Network(String fileName) {
+        YNet yNet = new YNet();
+
+        try {
+            YamlReader reader = new YamlReader(new FileReader(fileName));
+            yNet = reader.read(YNet.class);
+            reader.close();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
 
 
+        // build layer count
+        int[] layerCounts = new int[yNet.nodes.length];
+        int layerIndex = 0;
+        for (YNode[] node : yNet.nodes) {
+            layerCounts[layerIndex] = node.length;
+            layerIndex++;
+        }
 
+        // mutable time
+        this.nodes = new Node[layerCounts.length][];
+
+        // first layer
+        this.nodes[0] = new Node[layerCounts[0]]; 
+        for (int i = 0; i < layerCounts[0]; i++) {
+            this.nodes[0][i] = new Node(0, yNet.nodes[0][i].bias);
+        }
+       
+        // each layer
+        for (int i = 1; i < layerCounts.length; i++) {
+
+            // each node
+            this.nodes[i] = new Node[layerCounts[i]];
+            for (int n = 0; n < layerCounts[i]; n++) {
+                this.nodes[i][n] = new Node(yNet.nodes[i][n].weights, yNet.nodes[i][n].bias);
+            } 
+        }
     }
 
     // export network to yaml file

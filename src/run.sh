@@ -1,1 +1,1 @@
-java -cp ".:./lib/yamlbeans.jar" Main
+java -cp ".:./lib/yamlbeans.jar" Main $1

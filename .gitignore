@@ -1,3 +1,5 @@
 *.class
 *.yaml
 *.yml
+!tmp/*.yaml
+!tmp/*.yml
