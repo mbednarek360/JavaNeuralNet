@@ -4,6 +4,10 @@ import java.io.FileReader;
 import com.esotericsoftware.yamlbeans.YamlWriter;
 import com.esotericsoftware.yamlbeans.YamlReader;
 
+////////////////////////////////////////////////////////////////
+////                 general network definition and organization
+////////////////////////////////////////////////////////////////
+ 
 // handles training and network usage
 public class Network {
     
@@ -40,6 +44,7 @@ public class Network {
     public Network(String fileName) {
         YNet yNet = new YNet();
 
+        // attempt read
         try {
             YamlReader reader = new YamlReader(new FileReader(fileName));
             yNet = reader.read(YNet.class);
@@ -48,7 +53,6 @@ public class Network {
         catch (Exception e) {
             System.out.println(e);
         }
-
 
         // build layer count
         int[] layerCounts = new int[yNet.nodes.length];
@@ -127,6 +131,11 @@ public class Network {
         }
     }
 
+
+////////////////////////////////////////////////////////////////
+////                                  actual network usage stuff
+////////////////////////////////////////////////////////////////
+    
     // run network with given values
     public double[] runNetwork(double[] inputs) {
 
@@ -157,5 +166,27 @@ public class Network {
             outIndex++;
         }
         return outVals;
+    }
+
+
+////////////////////////////////////////////////////////////////
+////                                              training stuff
+////////////////////////////////////////////////////////////////
+
+    // calculate negative gradient for given training example
+    //public double[][][] getGradient(double[] inputs, double[] expected) {
+
+    //}
+
+    // get loss of expected and actual values 
+    public double getLoss(double[] inputs, double[] expected) {
+        double[] outputs = this.runNetwork(inputs);
+        double loss = 0;
+        int index = 0;
+        for (double input : inputs) {
+            loss += Math.pow(input - expected[index], 2) / 2;
+            index++;
+        }
+        return loss;
     }
 }

@@ -1,0 +1,60 @@
+digraph d {
+
+    graph [fontsize=16 compound=true, splines=ortho];
+    node [shape=rect fontsize=14, style=filled];
+
+    subgraph cluster_encoding {
+        label = "Encoding";
+
+        yaml_serializer [label = "YAML Serialize"];
+        ynet [label = "YNet Object"];
+
+
+        ynet -> yaml_serializer;
+
+
+
+
+    }
+
+
+    subgraph cluster_storage {
+        label = "Storage";
+
+        network_file [label = "net.yml"];
+
+
+
+
+
+
+
+    }
+
+    subgraph cluster_network {
+        label = "Network";
+
+        
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+    yaml_serializer -> network_file;
+
+
+
+
+
+
+}
