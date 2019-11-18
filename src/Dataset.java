@@ -4,12 +4,6 @@ import java.io.FileReader;
 import com.esotericsoftware.yamlbeans.YamlWriter;
 import com.esotericsoftware.yamlbeans.YamlReader;
 
-
-
-
-
-
-
 // handles encoding and abstraction of network training data
 public class Dataset {
 
@@ -17,11 +11,10 @@ public class Dataset {
     private double[] inputs;
     private double[] outputs;
 
-    //
+    // init arrays
     public Dataset(int inputCount, int outputCount) {
-
-
-
+        inputs = new double[inputCount];
+        outputs = new double[outputCount];
     }
 
     // deserialize from yaml

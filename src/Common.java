@@ -23,6 +23,6 @@ public class Common {
 
     // rectifier
     public static double relu(double input) {
-        return input < 0 ? input : input;
+        return input < 0 ? 0 : input;
     }
 }
