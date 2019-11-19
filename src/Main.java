@@ -23,6 +23,12 @@ public class Main {
             if (args[0].equals("train")) { 
             
             }
+
+            // for random tests
+            if (args[0].equals("test")) {
+                Dataset d = new Dataset(3, 3);
+                d.exportDataset(args[1]);
+            }
         }
 
         catch (Exception e) {
