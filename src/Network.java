@@ -14,6 +14,10 @@ public class Network {
     // bias init
     private final double BIAS_INIT = 0;
 
+    // learning rate
+    private final double LEARNING_RATE = 5;
+
+
     // layer - node
     private Node[][] nodes;
 
@@ -44,7 +48,6 @@ public class Network {
     public Network(String fileName) {
         YNet yNet = new YNet();
 
-        // attempt read
         try {
             YamlReader reader = new YamlReader(new FileReader(fileName));
             yNet = reader.read(YNet.class);
@@ -174,19 +177,45 @@ public class Network {
 ////////////////////////////////////////////////////////////////
 
     // calculate negative gradient for given training example
-    //public double[][][] getGradient(double[] inputs, double[] expected) {
+    //public double[][][] getGradient(double[] input, double[] expected) {
 
     //}
 
-    // get loss of expected and actual values 
-    public double getLoss(double[] inputs, double[] expected) {
-        double[] outputs = this.runNetwork(inputs);
-        double loss = 0;
-        int index = 0;
-        for (double input : inputs) {
-            loss += Math.pow(input - expected[index], 2) / 2;
-            index++;
+
+    // gradient format
+    // layer
+    // j index
+    // k index
+
+    //  l
+    // w
+    //  jk
+    // arr[l, k, j]
+
+    // arr[l, j] = node
+    // node.getWeights()[k] = w
+
+    // layer 0 = inputs
+
+    // apply a previously calculated gradient
+    public void applyGradient(double[][][] gradient) {
+
+        // loop through nodes
+        for (int l = 0; l < double.length; l++) {
+            for (int k = 0; k < double[l].length; k++) {
+
+                // get values for current node
+                double weights = this.nodes[l][k].getWeights();
+                double bias = this.nodes[l][k].getBias();
+
+                // go through weights and mutate
+                for (int j = 0; j < weights.length; j++) {
+                    weights[j] += LEARNING_RATE * gradient[l][k][j];
+                }
+
+                // replace node
+                nodes[j][k] = new Node(weights, bias);
+            }
         }
-        return loss;
     }
 }

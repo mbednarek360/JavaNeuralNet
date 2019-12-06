@@ -29,18 +29,28 @@ public class Node {
         }
     }
 
+    // get weights
+    public double[] getWeights() {
+        return this.weights;
+    } 
+
+    // get bias
+    public double getBias() {
+        return this.bias;
+    }
+    
     // get current node value
     public double getValue() {
         return this.value;
     }
 
+    // for serialization
     public YNode toYNode() {
         YNode out = new YNode();
         out.bias = this.bias;
         out.weights = this.weights;
         return out;
     }
-
 
     // for input nodes
     public void setValue(double v) {
