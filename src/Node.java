@@ -5,6 +5,7 @@ public class Node {
     private double bias;
     private double[] weights;
     private double value;
+    private double error;
 
     // create node and init weights
     public Node(int count, double b) {
@@ -44,6 +45,11 @@ public class Node {
         return this.value;
     }
 
+    // get error of node
+    public double geError() {
+        return this.error;
+    }
+
     // for serialization
     public YNode toYNode() {
         YNode out = new YNode();
@@ -70,5 +76,26 @@ public class Node {
 
         // activate
         this.value = Common.sigmoid(sum);
-    }    
+    }   
+
+    // get error from next layer
+    public void setError(Node[] layer, int index) {
+
+        // get sum of weights 
+        double totalWeight = 0; 
+        for (Node n : layer) {
+            totalWeight += n.getWeights()[index];
+        }
+     
+        // error dependant on significance of weight
+        this.error = 0;
+        for (Node n : layer) {
+            this.error += n.getError() * (n.getWeights()[index] / totalWeight)
+        }
+    }
+
+    // square of difference for backpropogation init
+    public void setError(double expected) {
+        this.error = Math.pow(expected - this.value, 2); 
+    }
 }

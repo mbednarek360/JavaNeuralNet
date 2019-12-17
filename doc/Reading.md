@@ -12,3 +12,4 @@
 - http://neuralnetworksanddeeplearning.com/chap2.html
 - http://colah.github.io/posts/2015-08-Backprop/
 - https://en.wikipedia.org/wiki/List_of_mathematical_symbols
+- https://youtu.be/QJoa0JYaX1I

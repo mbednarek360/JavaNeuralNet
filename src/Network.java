@@ -17,7 +17,6 @@ public class Network {
     // learning rate
     private final double LEARNING_RATE = 5;
 
-
     // layer - node
     private Node[][] nodes;
 
@@ -60,6 +59,7 @@ public class Network {
         // build layer count
         int[] layerCounts = new int[yNet.nodes.length];
         int layerIndex = 0;
+
         for (YNode[] node : yNet.nodes) {
             layerCounts[layerIndex] = node.length;
             layerIndex++;
@@ -176,12 +176,6 @@ public class Network {
 ////                                              training stuff
 ////////////////////////////////////////////////////////////////
 
-    // calculate negative gradient for given training example
-    //public double[][][] getGradient(double[] input, double[] expected) {
-
-    //}
-
-
     // gradient format
     // layer
     // j index
@@ -197,15 +191,93 @@ public class Network {
 
     // layer 0 = inputs
 
+
+    // backpropogate and calculate errors per node
+    public void setError() {
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // calculate negative gradient for given training example
+    public double[][][] getGradient(double[] input, double[] expected) {
+    
+        // propogate backwards through nodes
+
+        // sum derivative per node to get value in gradient  
+
+
+        // init gradient and loop 
+        double[][][] gradient = new double[this.nodes.legnth][][];
+        for (int l = 0; l < this.nodes.length; l++) {
+            gradient[l] = new double[this.nodes[l].length][];
+            for (int k = 0; k < this.nodes[l].length; k++) {
+                gradient[l][k] = new double[this.nodes[l][k].getWeights().length];
+
+
+                // do the cool stuff here
+                this.nodes[l][k][j]
+
+
+`
+
+
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+   
+
     // apply a previously calculated gradient
     public void applyGradient(double[][][] gradient) {
 
         // loop through nodes
-        for (int l = 0; l < double.length; l++) {
-            for (int k = 0; k < double[l].length; k++) {
+        for (int l = 0; l < gradient.length; l++) {
+            for (int k = 0; k < gradient[l].length; k++) {
 
                 // get values for current node
-                double weights = this.nodes[l][k].getWeights();
+                double[] weights = this.nodes[l][k].getWeights();
                 double bias = this.nodes[l][k].getBias();
 
                 // go through weights and mutate
@@ -214,7 +286,7 @@ public class Network {
                 }
 
                 // replace node
-                nodes[j][k] = new Node(weights, bias);
+                this.nodes[l][k] = new Node(weights, bias);
             }
         }
     }
