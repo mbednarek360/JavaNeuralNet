@@ -193,15 +193,17 @@ public class Network {
 
 
     // backpropogate and calculate errors per node
-    public void setError(double inputs, double expected) {
+    public double getError(double inputs, double expected) {
 
         // run network to init values 
         this.runNetwork(inputs);
 
         // init outputs error
         int outputIndex = 0;
+        double totalError = 0;
         for (Node outputNode : this.nodes[this.nodes.length - 1]) {
             outputNode.setError(expected[outputIndex]); 
+            totalError += outputNode.getError();
             outputIndex++;
         }
 
@@ -211,6 +213,9 @@ public class Network {
                 this.nodes[layerIndex][nodeIndex].setError(this.nodes[layerIndex + 1], nodeIndex);
             }
         }
+
+        // return sum of squares
+        return totalError;
     }
 
 
@@ -254,10 +259,8 @@ public class Network {
             for (int k = 0; k < this.nodes[l].length; k++) {
                 gradient[l][k] = new double[this.nodes[l][k].getWeights().length];
 
-
-
                 // do the cool stuff here
-                this.nodes[l][k]
+                this.nodes[l][k].getError();
 
 
 `
