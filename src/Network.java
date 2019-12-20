@@ -257,9 +257,27 @@ public class Network {
         for (int l = 0; l < this.nodes.length; l++) {
             gradient[l] = new double[this.nodes[l].length][];
             for (int k = 0; k < this.nodes[l].length; k++) {
-                gradient[l][k] = new double[this.nodes[l][k].getWeights().length];
+                gradient[l][k] = new double[this.nodes[l][k].getWeights().length + 1];
 
+
+                // init first element with bias
+                gradient[l][k][0] = this.nodes[l][k].getError(); 
+
+                // step through weights
+                for (int j = 0; j < this.nodes[l][k].getWeights().length; j++) {
+
+
+
+
+
+                }
                 // do the cool stuff here
+
+
+
+
+
+
                 this.nodes[l][k].getError();
 
 
