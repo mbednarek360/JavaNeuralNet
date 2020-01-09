@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -26,8 +28,26 @@ public class Main {
 
             // for random tests
             if (args[0].equals("test")) {
-                Dataset d = new Dataset(3, 3);
-                d.exportDataset(args[1]);
+                Network n = new Network(new int[]{2, 3, 1});
+                Random r = new Random();
+
+
+                for (int i = 0; i < 10000; i++) {
+
+                    int first = r.nextBoolean() ? 0 : 1;
+                    int second = r.nextBoolean() ? 0 : 1;
+                    int expected = first ^ second;
+
+                    n.learn(new Dataset(new double[]{first, second}, new double[]{expected}));
+
+
+
+
+                }
+            
+            
+            
+            
             }
         }
 

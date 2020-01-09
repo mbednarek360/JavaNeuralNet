@@ -156,7 +156,7 @@ public class Network {
             for (int nodeIndex = 0; nodeIndex < this.nodes[layerIndex].length; nodeIndex++) {
 
                 // read from last layer
-                System.out.println("Ight we out here setting node: " + layerIndex + ", " + nodeIndex);
+                //System.out.println("Ight we out here setting node: " + layerIndex + ", " + nodeIndex);
                 this.nodes[layerIndex][nodeIndex].setValue(this.nodes[layerIndex - 1]);
             }
         }
@@ -193,7 +193,7 @@ public class Network {
 
 
     // backpropogate and calculate errors per node
-    public double getError(double inputs, double expected) {
+    public double getError(double[] inputs, double[] expected) {
 
         // run network to init values 
         this.runNetwork(inputs);
@@ -218,32 +218,7 @@ public class Network {
         return totalError;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
     // calculate negative gradient for given training example
     public double[][][] getGradient(double[] input, double[] expected) {
     
@@ -253,7 +228,7 @@ public class Network {
 
 
         // init gradient and loop 
-        double[][][] gradient = new double[this.nodes.legnth][][];
+        double[][][] gradient = new double[this.nodes.length][][];
         for (int l = 0; l < this.nodes.length; l++) {
             gradient[l] = new double[this.nodes[l].length][];
             for (int k = 0; k < this.nodes[l].length; k++) {
@@ -265,42 +240,18 @@ public class Network {
 
                 // step through weights
                 for (int j = 0; j < this.nodes[l][k].getWeights().length; j++) {
-
-
-
-
+                    
+                    // the heart of it all (probably broken rn)
+                    gradient[l][k][j] = this.nodes[l][k].getError(); 
 
                 }
-                // do the cool stuff here
-
-
-
-
-
-
-                this.nodes[l][k].getError();
-
-
-`
-
-
             }
         }
 
-
-
-
-
-
-
-
-
-
+        // return final gradient
+        return gradient;
     }
 
-
-
-   
 
     // apply a previously calculated gradient
     public void applyGradient(double[][][] gradient) {
@@ -322,5 +273,11 @@ public class Network {
                 this.nodes[l][k] = new Node(weights, bias);
             }
         }
+    }
+
+    // composite to iterate with a single training example
+    public void learn(Dataset d) {
+        System.out.println(this.getError(d.getInputs(), d.getOutputs()));
+        this.applyGradient(this.getGradient(d.getInputs(), d.getOutputs()));
     }
 }

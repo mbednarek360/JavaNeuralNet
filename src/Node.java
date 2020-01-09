@@ -46,7 +46,7 @@ public class Node {
     }
 
     // get error of node
-    public double geError() {
+    public double getError() {
         return this.error;
     }
 
@@ -90,7 +90,7 @@ public class Node {
         // error dependant on significance of weight
         this.error = 0;
         for (Node n : layer) {
-            this.error += n.getError() * (n.getWeights()[index] / totalWeight)
+            this.error += Common.sigderiv(getError()) * (n.getWeights()[index] / totalWeight);
         }
     }
 
